@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<overlay id="scratchpad-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="scratchedit.js"/>
+
+  <keyset id="sp-keyset">
+    <key id="ScratchEd-it-key" key="E" modifiers="accel"
+         oncommand="scratchedit_menu();"/>
+  </keyset>
+
+  <menupopup id="sp-menu_editpopup">
+    <menuseparator id="ScratchEd-it-menu-separator"/>
+    <menuitem id="ScratchEd-it-menu"
+              key="ScratchEd-it-key" accesskey="E" acceltext="Ctrl+E"
+              label="External Edit" oncommand="scratchedit_menu();"/>
+  </menupopup>
+
+  <menupopup id="scratchpad-text-popup">
+    <menuseparator id="ScratchEd-it-popup-separator"/>
+    <menuitem id="ScratchEd-it-popup"
+              key="ScratchEd-it-key" accesskey="E" acceltext="Ctrl+E"
+              label="External Edit" oncommand="scratchedit_menu();"/>
+  </menupopup>
+
+</overlay>
