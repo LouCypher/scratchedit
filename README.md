@@ -12,4 +12,5 @@ Firefox 8.0 - 16.0a2
 
 ## Installation
 
-[Dev builds](https://github.com/LouCypher/scratchedit/downloads)
+* [Release versions](https://addons.mozilla.org/addon/scratchedit/)
+* [Dev builds](https://github.com/LouCypher/scratchedit/downloads)
