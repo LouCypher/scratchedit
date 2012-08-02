@@ -4,23 +4,27 @@
 
   <script type="application/x-javascript" src="scratchedit.js"/>
 
-  <keyset id="sp-keyset">
-    <key id="ScratchEd-it-key" key="E" modifiers="accel"
-         oncommand="scratchedit_menu();"/>
+  <commandset id="sourceEditorCommands">
+    <command id="ScratchEdit:command" oncommand="menuHandler();"/>
+  </commandset>
+
+  <keyset id="sourceEditorKeys">
+    <key id="ScratchEdit-key" key="E" modifiers="accel"
+         command="ScratchEdit:command"/>
   </keyset>
 
   <menupopup id="sp-menu_editpopup">
-    <menuseparator id="ScratchEd-it-menu-separator"/>
-    <menuitem id="ScratchEd-it-menu"
-              key="ScratchEd-it-key" accesskey="E" acceltext="Ctrl+E"
-              label="External Edit" oncommand="scratchedit_menu();"/>
+    <menuseparator id="ScratchEdit-menu-separator"/>
+    <menuitem id="ScratchEdit-menu"
+              key="ScratchEdit-key" accesskey="E" acceltext="Ctrl+E"
+              label="External Edit" command="ScratchEdit:command"/>
   </menupopup>
 
   <menupopup id="scratchpad-text-popup">
-    <menuseparator id="ScratchEd-it-popup-separator"/>
-    <menuitem id="ScratchEd-it-popup"
-              key="ScratchEd-it-key" accesskey="E" acceltext="Ctrl+E"
-              label="External Edit" oncommand="scratchedit_menu();"/>
+    <menuseparator id="ScratchEdit-popup-separator"/>
+    <menuitem id="ScratchEdit-popup"
+              key="ScratchEdit-key" accesskey="E" acceltext="Ctrl+E"
+              label="External Edit" command="ScratchEdit:command"/>
   </menupopup>
 
 </overlay>
