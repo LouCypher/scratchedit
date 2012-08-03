@@ -7,7 +7,7 @@
     <!--em:unpack>true</em:unpack-->
     <em:name>Scratchpad Editor</em:name>
     <em:version>0.1</em:version>
-    <em:description>Allows you to use external text editor on Scratchpad.</em:description>
+    <em:description>Enables you to use external text editor with Scratchpad.</em:description>
     <em:creator>LouCypher</em:creator>
     <em:contributor>Alice White (original code)</em:contributor>
     <em:homepageURL>http://loucypher.github.com/scratchedit</em:homepageURL>
