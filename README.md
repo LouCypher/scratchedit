@@ -12,5 +12,5 @@ Firefox 8.0 - 16.0a2
 
 ## Installation
 
-* [Release versions](https://addons.mozilla.org/addon/scratchedit/)
+* [Release versions](https://addons.mozilla.org/addon/scratchedit/?src=external-home)
 * [Dev builds](https://github.com/LouCypher/scratchedit/downloads)
