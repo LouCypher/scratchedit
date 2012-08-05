@@ -11,6 +11,13 @@
     <em:creator>LouCypher</em:creator>
     <em:contributor>Alice White (original code)</em:contributor>
     <em:homepageURL>http://loucypher.github.com/scratchedit</em:homepageURL>
+    <em:localized>
+      <Description>
+        <em:locale>en-US</em:locale>
+        <em:name>Scratchpad Editor</em:name>
+        <em:description>Enables you to use external text editor with Scratchpad.</em:description>
+      </Description>
+    </em:localized>
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>

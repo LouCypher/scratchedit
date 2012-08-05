@@ -1,8 +1,16 @@
 <?xml version="1.0"?>
-<overlay id="scratchpad-overlay"
+
+<!DOCTYPE overlay SYSTEM "../locale/">
+
+<overlay id="scratchedit-scratchpad-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <script type="application/x-javascript" src="scratchedit.js"/>
+
+  <stringbundleset>
+    <stringbundle id="ScratchEdit-strings"
+                  src="chrome://scratchedit/locale/scratchedit.properties"/>
+  </stringbundleset>
 
   <commandset id="sourceEditorCommands">
     <command id="ScratchEdit:command" oncommand="menuHandler();"/>
@@ -16,15 +24,20 @@
   <menupopup id="sp-menu_editpopup">
     <menuseparator id="ScratchEdit-menu-separator"/>
     <menuitem id="ScratchEdit-menu"
-              key="ScratchEdit-key" accesskey="E" acceltext="Ctrl+E"
-              label="External Edit" command="ScratchEdit:command"/>
+              key="ScratchEdit-key"
+              accesskey="&ScratchEdit.key;"
+              acceltext="Ctrl+E"
+              label="&ScratchEdit.label;"
+              command="ScratchEdit:command"/>
   </menupopup>
 
   <menupopup id="scratchpad-text-popup">
     <menuseparator id="ScratchEdit-popup-separator"/>
     <menuitem id="ScratchEdit-popup"
-              key="ScratchEdit-key" accesskey="E" acceltext="Ctrl+E"
-              label="External Edit" command="ScratchEdit:command"/>
+              key="ScratchEdit-key"
+              accesskey="E"
+              acceltext="Ctrl+E"
+              label="&ScratchEdit.label;" command="ScratchEdit:command"/>
   </menupopup>
 
 </overlay>

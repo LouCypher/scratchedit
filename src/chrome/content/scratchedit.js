@@ -44,6 +44,9 @@
   var _tempdir = null, _dir_separator, _os;
   var _encode = "UTF-8", _target = [];
 
+  var pref = Services.prefs.getBranch("extensions.scratchedit.");
+  var prompts = Services.prompt;
+
   function editinit() {
     if (window.navigator.platform.toLowerCase().indexOf("win") != -1) {
       // Windows OS
@@ -63,24 +66,31 @@
     }, false);
   }
 
+  function getString(aStringBundle) {
+    return document.getElementById("ScratchEdit-strings").getString(aStringBundle);
+  }
+
+  function _alert(aString) {
+    prompts.alert(null, getString("brand_name"), getString(aString));
+  }
+
   function getEditor() {
-    var pref = Services.prefs.getBranch("extensions.scratchedit.");
     var editor = pref.getCharPref("editor");
     if (!editor) {
-      var prompts = Services.prompt;
-      var ask = prompts.confirmEx(null, "Scratchpad Editor",
-                                  "Select external editor to use with Scratchpad",
+      var ask = prompts.confirmEx(null, getString("brand_name"),
+                                  getString("prompt_select"),
                                   prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING
                                 + prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL
                                 + prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING,
-                                  "Continue", "", "", null, {value: false});
-      if (ask != 0) return;
+                                  getString("prompt_ok"), "", "",
+                                  null, {value: false});
+      if (ask != 0) return false;
       var nsIFilePicker = Ci.nsIFilePicker;
       var filePicker = Cc["@mozilla.org/filepicker;1"].
                        createInstance(nsIFilePicker);
-      filePicker.init(window, "Select editor", nsIFilePicker.modeOpen);
-      filePicker.appendFilters(nsIFilePicker.filterApplication);
-      filePicker.appendFilters(nsIFilePicker.filterAll);
+      filePicker.init(window, getString("file_picker_title"), nsIFilePicker.modeOpen);
+      filePicker.appendFilters(nsIFilePicker.filterApps);
+      //filePicker.appendFilters(nsIFilePicker.filterAll);
       if (filePicker.show() == nsIFilePicker.returnOK) {
         if (filePicker.file.exists() && filePicker.file.isExecutable()) {
           pref.setCharPref("editor", filePicker.file.path);
@@ -186,12 +196,14 @@
     var file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
     file.initWithPath(editor);
     if (!file.exists()) {
-      alert("Error_invalid_Editor_file");
-      return false;
+      _alert(getString("error_invalid_editor_file"));
+      pref.clearUserPref("editor");
+      if (!getEditor()) return false;
     }
     if (!file.isExecutable()) {
-      alert("Please pick an executable application.");
-      return false;
+      _alert(getString("pick_app"));
+      pref.clearUserPref("editor");
+      if (!getEditor()) return false;
     }
     target.setAttribute("filename", filename);
     target.setAttribute("timestamp", file.lastModifiedTime);
@@ -287,15 +299,14 @@
   */
   function gettmpDir() {
     /* Where is the directory that we use. */
-    var fobj = Cc["@mozilla.org/file/directory_service;1"].
-               getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile);
+    var fobj = Services.dirsvc.get("ProfD", Ci.nsIFile);
     fobj.append("Temp_ScratchEdit");
     if (!fobj.exists()) {
       fobj.create(Ci.nsIFile.DIRECTORY_TYPE, parseInt("0700", 8));
     }
     if (!fobj.isDirectory()) {
       // the string will be replaced locale properties in the future
-      alert("Having a problem finding or creating directory: " + fobj.path);
+      _alert(getString("error_directory") + ": " + fobj.path);
     }
     return fobj.path;
   }
