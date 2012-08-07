@@ -36,18 +36,21 @@
 *              (2007/02/21)
 * - LouCypher, external editor for Scratchpad
 * 
-* 
 * ***** END LICENSE BLOCK ***** */
 
 (function() {
 
-  var _tempdir = null, _dir_separator, _os;
+  var _tempdir = null, _dir_separator, _os, _file;
   var _encode = "UTF-8", _target = [];
 
   var pref = Services.prefs.getBranch("extensions.scratchedit.");
   var prompts = Services.prompt;
 
   function editinit() {
+    var gecko = parseInt(Services.appinfo.platformVersion);
+    _file = Cc["@mozilla.org/file/local;1"].
+            createInstance((gecko >= 14) ? Ci.nsIFile : Ci.nsILocalFile);
+
     if (window.navigator.platform.toLowerCase().indexOf("win") != -1) {
       // Windows OS
       _dir_separator = "\\";
@@ -113,10 +116,8 @@
       return;
     }
 
-    var file = Cc["@mozilla.org/file/local;1"].
-               createInstance(Ci.nsILocalFile);
-    file.initWithPath(_tempdir);
-    var entries = file.directoryEntries;
+    _file.initWithPath(_tempdir);
+    var entries = _file.directoryEntries;
     while (entries.hasMoreElements()) {
       var entry = entries.getNext().QueryInterface(Ci.nsIFile);
       if (/^scratchpad\./i.test(entry.leafName)) {
@@ -128,8 +129,8 @@
     }
 
     try {
-      if (file.exists() == true ) {
-        file.remove(false);
+      if (_file.exists() == true ) {
+        _file.remove(false);
       }
     } catch(e) {
     }
@@ -143,11 +144,10 @@
 
   function checkfocus_window() {
     var target, filename, timestamp, encode,
-        file, inst, sstream, utf, textBoxText;
+        inst, sstream, utf, textBoxText;
 
     if (_target.length <= 0) return;
 
-    file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
     istr = Cc["@mozilla.org/network/file-input-stream;1"].
            createInstance(Ci.nsIFileInputStream);
 
@@ -162,13 +162,13 @@
       if (!target.hasAttribute("filename")) continue;
       filename = target.getAttribute("filename");
       timestamp = target.getAttribute("timestamp");
-      file.initWithPath(filename);
-      if (!file.exists() || !file.isReadable()) continue;
-      if (file.lastModifiedTime <= timestamp) continue;
+      _file.initWithPath(filename);
+      if (!_file.exists() || !_file.isReadable()) continue;
+      if (_file.lastModifiedTime <= timestamp) continue;
 
-      target.setAttribute("timestamp", file.lastModifiedTime);
+      target.setAttribute("timestamp", _file.lastModifiedTime);
 
-      istr.init(file, 1, 0x400, false);
+      istr.init(_file, 1, 0x400, false);
       sstream.init(istr);
 
       textBoxText = sstream.read(sstream.available());
@@ -182,7 +182,7 @@
       sstream.close();
       istr.close();
       try {
-        file.remove(false);
+        _file.remove(false);
       } catch(e) {
       }
     }
@@ -193,25 +193,24 @@
     var editor = getEditor();
     if (!editor) return false;
 
-    var file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
-    file.initWithPath(editor);
-    if (!file.exists()) {
+    _file.initWithPath(editor);
+    if (!_file.exists()) {
       _alert(getString("error_invalid_editor_file"));
       pref.clearUserPref("editor");
       if (!getEditor()) return false;
     }
-    if (!file.isExecutable()) {
+    if (!_file.isExecutable()) {
       _alert(getString("pick_app"));
       pref.clearUserPref("editor");
       if (!getEditor()) return false;
     }
     target.setAttribute("filename", filename);
-    target.setAttribute("timestamp", file.lastModifiedTime);
+    target.setAttribute("timestamp", _file.lastModifiedTime);
 
     // Run the editor.
     var process = Cc["@mozilla.org/process/util;1"].
                   createInstance(Ci.nsIProcess);
-    process.init(file);
+    process.init(_file);
     var args = [filename];
     process.run(false, args, args.length);  // don't block
     document.addEventListener("focus", checkfocus_window, true);
@@ -221,24 +220,23 @@
   function edittarget(target) {
     var textBoxText = Scratchpad.getText();
     // Get filename.
-    var file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
     if (target.hasAttribute("filename")) {
       var filename = target.getAttribute("filename");
-      file.initWithPath(filename);
+      _file.initWithPath(filename);
       try {
-        if (file.exists()) file.remove(false);
+        if (_file.exists()) _file.remove(false);
       } catch(e) {
       }
     } else {
       var filename = TmpFilenameTextarea();
     }
-    file.initWithPath(filename);    
-    file.create(file.NORMAL_FILE_TYPE, 0600);
+    _file.initWithPath(filename);    
+    _file.create(_file.NORMAL_FILE_TYPE, 0600);
 
     // Write the data to the file.
     var ostr = Cc["@mozilla.org/network/file-output-stream;1"].
                createInstance(Ci.nsIFileOutputStream);
-    ostr.init(file, 2, 0x200, false);
+    ostr.init(_file, 2, 0x200, false);
 
     if (_os == "win") {
       // Convert Unix newlines to standard network newlines
@@ -261,7 +259,7 @@
     target.setAttribute("encode", _encode);
 
     // Edit the file.
-    if (editfile(target, file.path)) {
+    if (editfile(target, _file.path)) {
       _target.push(target);  // Editting target array
     }
   }
@@ -284,9 +282,7 @@
   //Function returns true if given filename exists
   function ExistsFile(filename) {
     try {
-      var file = Cc["@mozilla.org/file/local;1"].
-                 createInstance(Ci.nsILocalFile);
-      file.initWithPath(filename);
+      _file.initWithPath(filename);
       return true;
     } catch(e) {
       return false;
