@@ -240,7 +240,7 @@
 
     if (_os == "win") {
       // Convert Unix newlines to standard network newlines
-      textBoxText = textBoxText.replace(/\n/g, "\r\n");
+      textBoxText = textBoxText.replace(/\r/g, "").replace(/\n/g, "\r\n");
     }
     var conv = Cc["@mozilla.org/intl/saveascharset;1"].
                createInstance(Ci.nsISaveAsCharset);

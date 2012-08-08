@@ -6,7 +6,7 @@
     <em:type>2</em:type>
     <!--em:unpack>true</em:unpack-->
     <em:name>Scratchpad Editor</em:name>
-    <em:version>0.3</em:version>
+    <em:version>0.3.1</em:version>
     <em:description>Enables you to use external text editor with Scratchpad.</em:description>
     <em:creator>LouCypher</em:creator>
     <em:contributor>Alice White (original code)</em:contributor>
