@@ -48,8 +48,7 @@
 
   function editinit() {
     var gecko = parseInt(Services.appinfo.platformVersion);
-    _file = Cc["@mozilla.org/file/local;1"].
-            createInstance((gecko >= 14) ? Ci.nsIFile : Ci.nsILocalFile);
+    _file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsIFile);
 
     if (window.navigator.platform.toLowerCase().indexOf("win") != -1) {
       // Windows OS
@@ -291,7 +290,7 @@
 
   /**
   * Returns the directory where we put files to edit.
-  * @returns nsILocalFile The location where we should write editable files.
+  * @returns nsIFile The location where we should write editable files.
   */
   function gettmpDir() {
     /* Where is the directory that we use. */
