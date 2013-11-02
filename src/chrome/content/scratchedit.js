@@ -295,7 +295,7 @@
   */
   function gettmpDir() {
     /* Where is the directory that we use. */
-    var fobj = Services.dirsvc.get("ProfD", Ci.nsIFile);
+    var fobj = Services.dirsvc.get("TmpD", Ci.nsIFile);
     fobj.append("Temp_ScratchEdit");
     if (!fobj.exists()) {
       fobj.create(Ci.nsIFile.DIRECTORY_TYPE, parseInt("0700", 8));
