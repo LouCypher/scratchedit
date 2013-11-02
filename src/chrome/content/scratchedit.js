@@ -148,7 +148,7 @@
 
     if (_target.length <= 0) return;
 
-    istr = Cc["@mozilla.org/network/file-input-stream;1"].
+    var istr = Cc["@mozilla.org/network/file-input-stream;1"].
            createInstance(Ci.nsIFileInputStream);
 
     // FileInputStream's read is [noscript].
