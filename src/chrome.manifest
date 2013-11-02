@@ -1,5 +1,4 @@
 content   scratchedit                                   chrome/content/
 skin      scratchedit     classic/1.0                   chrome/skin/classic/
 locale    scratchedit     en-US                         chrome/locale/en-US/
-overlay   chrome://browser/content/scratchpad.xul       chrome://scratchedit/content/scratchpadOverlay.xul
 overlay   chrome://browser/content/devtools/scratchpad.xul       chrome://scratchedit/content/scratchpadOverlay.xul
