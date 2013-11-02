@@ -12,11 +12,11 @@
                   src="chrome://scratchedit/locale/scratchedit.properties"/>
   </stringbundleset>
 
-  <commandset id="sourceEditorCommands">
+  <commandset id="editMenuCommands">
     <command id="ScratchEdit:command" oncommand="menuHandler();"/>
   </commandset>
 
-  <keyset id="sourceEditorKeys">
+  <keyset id="editMenuKeys">
     <key id="ScratchEdit-key" key="E" modifiers="accel"
          command="ScratchEdit:command"/>
   </keyset>

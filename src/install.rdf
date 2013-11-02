@@ -6,8 +6,8 @@
     <em:type>2</em:type>
     <em:unpack>false</em:unpack>
     <em:name>Scratchpad Editor</em:name>
-    <em:version>0.3.3</em:version>
-    <em:description>Enables you to use external text editor with Scratchpad.</em:description>
+    <em:version>0.4a1</em:version>
+    <em:description>Allows you to use external text editor on Scratchpad.</em:description>
     <em:homepageURL>http://loucypher.github.com/scratchedit</em:homepageURL>
     <em:iconURL>chrome://scratchedit/skin/scratchedit-48.png</em:iconURL>
     <em:icon64URL>chrome://scratchedit/skin/scratchedit-64.png</em:icon64URL>
@@ -15,7 +15,7 @@
       <Description>
         <em:locale>en-US</em:locale>
         <em:name>Scratchpad Editor</em:name>
-        <em:description>Enables you to use external text editor with Scratchpad.</em:description>
+        <em:description>Allows you to use external text editor on Scratchpad.</em:description>
         <em:creator>LouCypher</em:creator>
         <em:contributor>Alice White (original code)</em:contributor>
       </Description>
@@ -23,8 +23,8 @@
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-        <em:minVersion>17.0</em:minVersion>
-        <em:maxVersion>24.0a2</em:maxVersion>
+        <em:minVersion>27.0a2</em:minVersion>
+        <em:maxVersion>28.*</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>
